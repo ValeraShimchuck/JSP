@@ -29,3 +29,14 @@ shadowJar {
     configurations = [project.configurations.runtimeClasspath, project.configurations.shadow]
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'com.github.ValeraShimchuck'
+            artifactId = 'JSP'
+            version = '1.0'
+            from components.java
+        }
+    }
+}
+
