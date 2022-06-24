@@ -26,7 +26,7 @@ ___________________
     <dependency>
 	    <groupId>com.github.ValeraShimchuck</groupId>
 	    <artifactId>JSP</artifactId>
-	    <version>1.0</version>
+	    <version>1.1</version>
 	</dependency>
 #### gradle
 	allprojects {
