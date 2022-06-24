@@ -10,7 +10,7 @@ public interface IWallet {
     CompletableFuture<HttpResponseResult> sendMoney(WalletNumber walletNumber, int amount, String comment);
 
     default CompletableFuture<HttpResponseResult> sendMoney(WalletNumber walletNumber, int amount) {
-        return sendMoney(walletNumber, amount, "");
+        return sendMoney(walletNumber, amount, " ");
     }
 
     default CompletableFuture<HttpResponseResult> sendMoney(String wallet, int amount, String comment) {
@@ -18,7 +18,7 @@ public interface IWallet {
     }
 
     default CompletableFuture<HttpResponseResult> sendMoney(String wallet, int amount) {
-        return sendMoney(wallet, amount, "");
+        return sendMoney(wallet, amount, " ");
     }
 
 }

@@ -22,6 +22,7 @@ public class Wallet implements IWallet {
 
     @Override
     public CompletableFuture<HttpResponseResult> sendMoney(WalletNumber walletNumber, int amount, String comment) {
+        if(comment.length() == 0) throw new RuntimeException("comment can`t be empty");
         if (amount <= 0) throw new RuntimeException("amount must be positive");
         return SimpleHTTP.jsonApplication(ApiValues.Operations.SEND_MONEY.getUrl())
                 .addHeader("Authorization", key.getAuthorizationHeader())

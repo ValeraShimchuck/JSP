@@ -1,6 +1,7 @@
 package ua.valeriishymchuk.jsp.simplehttp;
 
 import com.google.common.io.ByteStreams;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -37,7 +38,12 @@ public class HttpResponseResult {
     }
 
     private JsonObject unpack(byte[] bytes) {
-        return (JsonObject) JsonParser.parseString(new String(bytes, StandardCharsets.UTF_8));
+        JsonElement element = JsonParser.parseString(new String(bytes, StandardCharsets.UTF_8));
+        if(element.isJsonNull()) return null;
+        if(!element.isJsonObject()) {
+            throw new RuntimeException(element.getClass() + " unhandled");
+        }
+        return (JsonObject) element;
     }
 
     public void throwIfNotSuccess() throws HTTPException {
