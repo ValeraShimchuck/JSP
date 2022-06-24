@@ -8,7 +8,6 @@ sourceCompatibility = 1.18
 targetCompatibility = 1.18
 
 group 'com.github.ValeraShimchuck'
-version '1.0'
 
 repositories {
     mavenCentral()
