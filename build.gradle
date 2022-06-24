@@ -50,6 +50,7 @@ sourcesJar {
     into archiveClassifier.set("sources")
 }
 
+
 javadoc {
     dependsOn delombok
     source = delombok.outputDir
@@ -64,6 +65,7 @@ tasks.withType(Jar) {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
     def list = new ArrayList()
     eachFile {
+        project.logger.lifecycle(getSourcePath())
         if (!list.contains(getSourcePath())) {
             list.add(getSourcePath())
             exclude()
