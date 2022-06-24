@@ -26,7 +26,7 @@ ___________________
     <dependency>
 	    <groupId>com.github.ValeraShimchuck</groupId>
 	    <artifactId>JSP</artifactId>
-	    <version>1.2</version>
+	    <version>1.3</version>
 	</dependency>
 #### gradle
 	allprojects {
@@ -37,7 +37,7 @@ ___________________
 	}
 
 	dependencies {
-	        implementation 'com.github.ValeraShimchuck:JSP:1.2'
+	        implementation 'com.github.ValeraShimchuck:JSP:1.3'
 	}
 ### Как отправить деньги на карту
     String walletId = "7bfaa2cc-628a-44e9-a6a0-d0d25e6ecae1";
