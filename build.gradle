@@ -8,12 +8,18 @@ sourceCompatibility = 1.18
 targetCompatibility = 1.18
 
 group 'com.github.ValeraShimchuck'
+version '1.0'
 
 repositories {
     mavenCentral()
     maven { url "https://repo.papermc.io/repository/maven-public/" }
     maven { url 'https://jitpack.io' }
     gradlePluginPortal()
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
 }
 
 dependencies {
@@ -31,9 +37,6 @@ shadowJar {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId = 'com.github.ValeraShimchuck'
-            artifactId = 'JSP'
-            version = '1.0'
             from components.java
         }
     }
