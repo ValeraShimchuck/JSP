@@ -1,3 +1,4 @@
+[![](https://jitpack.io/v/ValeraShimchuck/JSP.svg)](https://jitpack.io/#ValeraShimchuck/JSP)
 # Документация JSP
 ________________________
 ## Преимущества над остальными
@@ -12,6 +13,32 @@ ________________________
 ___________________
 ## Как начать
 Для начала скачайте или забилдите последний .jar файл, а потом импортируйте в проект.
+Также доступен репозиторий на JitPack.
+### Как импортировать через gradle/maven
+#### maven
+    <repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
+    <dependency>
+	    <groupId>com.github.ValeraShimchuck</groupId>
+	    <artifactId>JSP</artifactId>
+	    <version>1.0</version>
+	</dependency>
+#### gradle
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+
+	dependencies {
+	        implementation 'com.github.ValeraShimchuck:JSP:1.0'
+	}
 ### Как отправить деньги на карту
     String walletId = "7bfaa2cc-628a-44e9-a6a0-d0d25e6ecae1";
     String walletToken = "wvb7Rc9tf91ipiN2AzHipS3/RAvhLc0H";
