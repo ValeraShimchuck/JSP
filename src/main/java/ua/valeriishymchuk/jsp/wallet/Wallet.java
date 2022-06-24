@@ -1,8 +1,5 @@
 package ua.valeriishymchuk.jsp.wallet;
 
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.apache.hc.core5.http.Method;
 import ua.valeriishymchuk.jsp.values.ApiValues;
 import ua.valeriishymchuk.jsp.interfaces.wallet.IWallet;
@@ -11,11 +8,13 @@ import ua.valeriishymchuk.jsp.simplehttp.SimpleHTTP;
 
 import java.util.concurrent.CompletableFuture;
 
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequiredArgsConstructor
 public class Wallet implements IWallet {
 
-    WalletKey key;
+    private final WalletKey key;
+
+    public Wallet(WalletKey key) {
+        this.key = key;
+    }
 
     public Wallet(String walletID, String walletToken) {
         this(new WalletKey(walletID, walletToken));

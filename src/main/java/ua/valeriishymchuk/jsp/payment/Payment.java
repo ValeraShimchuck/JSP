@@ -1,27 +1,27 @@
 package ua.valeriishymchuk.jsp.payment;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.apache.hc.core5.http.Method;
-import ua.valeriishymchuk.jsp.values.ApiValues;
 import ua.valeriishymchuk.jsp.interfaces.payment.IPayment;
 import ua.valeriishymchuk.jsp.simplehttp.SimpleHTTP;
+import ua.valeriishymchuk.jsp.values.ApiValues;
 import ua.valeriishymchuk.jsp.wallet.WalletKey;
 
 import java.net.URI;
 import java.util.concurrent.CompletableFuture;
 
-@Getter
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequiredArgsConstructor
 public class Payment implements IPayment {
 
-    int amount;
-    URI redirectURI;
-    URI webhookURI;
-    String paymentData;
+    private final int amount;
+    private final URI redirectURI;
+    private final URI webhookURI;
+    private final String paymentData;
+
+    public Payment(int amount, URI redirectURI, URI webhookURI, String paymentData) {
+        this.amount = amount;
+        this.redirectURI = redirectURI;
+        this.webhookURI = webhookURI;
+        this.paymentData = paymentData;
+    }
 
     @Override
     public CompletableFuture<URI> sendPayment(WalletKey key) {
@@ -36,5 +36,21 @@ public class Payment implements IPayment {
                     httpResponseResult.throwIfNotSuccessSneaky();
                     return URI.create(httpResponseResult.getContent().get("url").getAsString());
                 });
+    }
+
+    public int getAmount() {
+        return this.amount;
+    }
+
+    public URI getRedirectURI() {
+        return this.redirectURI;
+    }
+
+    public URI getWebhookURI() {
+        return this.webhookURI;
+    }
+
+    public String getPaymentData() {
+        return this.paymentData;
     }
 }

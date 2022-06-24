@@ -1,31 +1,40 @@
 package ua.valeriishymchuk.jsp.simplehttp;
 
+import com.google.common.io.ByteStreams;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import lombok.experimental.FieldDefaults;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequiredArgsConstructor
-@Getter
+
 public class HttpResponseResult {
 
-    @SneakyThrows
     public HttpResponseResult(CloseableHttpResponse response) {
         code = response.getCode();
         reasonPhrase = response.getReasonPhrase();
-        content = unpack(response.getEntity().getContent().readAllBytes());
+        try {
+            content = unpack(readAllBytes(response.getEntity().getContent()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    int code;
-    String reasonPhrase;
-    JsonObject content;
+    private byte[] readAllBytes(InputStream stream) throws IOException {
+        return ByteStreams.toByteArray(stream);
+    }
+
+    private final int code;
+    private final String reasonPhrase;
+    private final JsonObject content;
+
+    public HttpResponseResult(int code, String reasonPhrase, JsonObject content) {
+        this.code = code;
+        this.reasonPhrase = reasonPhrase;
+        this.content = content;
+    }
 
     private JsonObject unpack(byte[] bytes) {
         return (JsonObject) JsonParser.parseString(new String(bytes, StandardCharsets.UTF_8));
@@ -36,12 +45,28 @@ public class HttpResponseResult {
         throw new HTTPException(code + " " + reasonPhrase);
     }
 
-    @SneakyThrows
+
     public void throwIfNotSuccessSneaky() {
-        throwIfNotSuccess();
+        try {
+            throwIfNotSuccess();
+        } catch (HTTPException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public boolean isSuccess() {
         return (code + "").startsWith("2");
+    }
+
+    public int getCode() {
+        return this.code;
+    }
+
+    public String getReasonPhrase() {
+        return this.reasonPhrase;
+    }
+
+    public JsonObject getContent() {
+        return this.content;
     }
 }

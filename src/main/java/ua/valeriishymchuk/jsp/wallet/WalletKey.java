@@ -1,17 +1,11 @@
 package ua.valeriishymchuk.jsp.wallet;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.experimental.FieldDefaults;
-
 import java.util.Base64;
 import java.util.UUID;
 
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public final class WalletKey {
 
-    @Getter
-    String key;
+    private final String key;
 
     public WalletKey(String walletId, String walletToken) {
         if(!walletId.matches("[a-f\\d]{8}(?:-[a-f\\d]{4}){4}[a-f\\d]{8}"))
@@ -32,4 +26,7 @@ public final class WalletKey {
         return "Bearer " + Base64.getEncoder().encodeToString(key.getBytes());
     }
 
+    public String getKey() {
+        return key;
+    }
 }

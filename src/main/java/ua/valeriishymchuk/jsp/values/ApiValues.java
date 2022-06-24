@@ -1,29 +1,32 @@
 package ua.valeriishymchuk.jsp.values;
 
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.UtilityClass;
-
 import java.net.URI;
+import java.net.URISyntaxException;
 
-@FieldDefaults(level = AccessLevel.PUBLIC, makeFinal = true)
-@UtilityClass
-public class ApiValues {
+public final class ApiValues {
 
-    String API_URL = "https://spworlds.ru/api/public/";
+    public static final String API_URL = "https://spworlds.ru/api/public/";
 
-    @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-    @RequiredArgsConstructor
-    public enum Operations {
+    private ApiValues() {
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+    }
+
+    public static enum Operations {
         SEND_MONEY("transactions"),
         SEND_PAYMENT_REQUEST("payment"),
         GET_USER("users/");
-        String operation;
-        @SneakyThrows
+        private final String operation;
+
+        private Operations(String operation) {
+            this.operation = operation;
+        }
+
         public URI getUrl() {
-            return new URI(API_URL + operation);
+            try {
+                return new URI(API_URL + operation);
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

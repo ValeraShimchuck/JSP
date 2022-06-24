@@ -1,12 +1,8 @@
 package ua.valeriishymchuk.jsp.wallet;
 
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public final class WalletNumber {
 
-    String walletID;
+    private final String walletID;
 
     public WalletNumber(String walletID) {
         if(!walletID.matches("\\d{5}")) throw new RuntimeException("walletID is invalid");
@@ -17,4 +13,5 @@ public final class WalletNumber {
     public String toString() {
         return walletID;
     }
+
 }

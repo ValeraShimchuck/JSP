@@ -3,9 +3,6 @@ package ua.valeriishymchuk.jsp.simplehttp;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -21,14 +18,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequiredArgsConstructor
 public class SimpleHTTP {
 
-    URI uri;
-    Map<String, String> headers;
-    Map<String, String> parameters;
-    Map<String, Object> content;
+    private final URI uri;
+    private final Map<String, String> headers;
+    private final Map<String, String> parameters;
+    private final Map<String, Object> content;
 
     public SimpleHTTP(URI uri, Map<String, String> headers, Map<String, String> parameters) {
         this(uri, headers, parameters, new HashMap<>());
@@ -40,6 +35,13 @@ public class SimpleHTTP {
 
     public SimpleHTTP(URI uri) {
         this(uri, new HashMap<>());
+    }
+
+    public SimpleHTTP(URI uri, Map<String, String> headers, Map<String, String> parameters, Map<String, Object> content) {
+        this.uri = uri;
+        this.headers = headers;
+        this.parameters = parameters;
+        this.content = content;
     }
 
     public SimpleHTTP addHeader(String parameter, String value) {
@@ -92,11 +94,11 @@ public class SimpleHTTP {
     private String pack(Map<String, Object> mapToPack) {
         JsonObject jsonObject = new JsonObject();
         mapToPack.forEach((property, value) -> {
-            if(value instanceof Number number) jsonObject.addProperty(property, number);
-            else if(value instanceof String string) jsonObject.addProperty(property, string);
-            else if(value instanceof Boolean bool) jsonObject.addProperty(property, bool);
-            else if(value instanceof Character character) jsonObject.addProperty(property, character);
-            else if(value instanceof JsonElement element) jsonObject.add(property, element);
+            if(value instanceof Number) jsonObject.addProperty(property, (Number) value);
+            else if(value instanceof String) jsonObject.addProperty(property, (String) value);
+            else if(value instanceof Boolean) jsonObject.addProperty(property, (Boolean) value);
+            else if(value instanceof Character) jsonObject.addProperty(property, (Character) value);
+            else if(value instanceof JsonElement) jsonObject.add(property, (JsonElement) value);
             else throw new RuntimeException(value.getClass() + " unhandled");
         });
         return jsonObject.toString();
