@@ -16,7 +16,7 @@ public final class WalletKey {
     public WalletKey(String walletId, String walletToken) {
         if(!walletId.matches("[a-f\\d]{8}(?:-[a-f\\d]{4}){4}[a-f\\d]{8}"))
             throw new RuntimeException("invalid wallet id");
-        if(!walletToken.matches("[a-zA-Z\\d/+\\\\]{32}")) throw new RuntimeException("invalid wallet token");
+        if(!walletToken.matches("[a-zA-Z\\d/+]{32}")) throw new RuntimeException("invalid wallet token");
         this.key = walletId + ":" + walletToken;
     }
 

@@ -4,8 +4,8 @@ plugins {
     id 'maven-publish'
 }
 
-sourceCompatibility = 1.18
-targetCompatibility = 1.18
+sourceCompatibility = JavaVersion.VERSION_18
+targetCompatibility = JavaVersion.VERSION_18
 
 group 'com.github.ValeraShimchuck'
 version '1.0'
