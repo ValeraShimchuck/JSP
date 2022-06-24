@@ -37,7 +37,7 @@ ___________________
 	}
 
 	dependencies {
-	        implementation 'com.github.ValeraShimchuck:JSP:1.0'
+	        implementation 'com.github.ValeraShimchuck:JSP:1.1'
 	}
 ### Как отправить деньги на карту
     String walletId = "7bfaa2cc-628a-44e9-a6a0-d0d25e6ecae1";
