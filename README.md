@@ -1,5 +1,8 @@
 [![](https://jitpack.io/v/ValeraShimchuck/JSP.svg)](https://jitpack.io/#ValeraShimchuck/JSP)
-# Документация JSP https://github.com/sp-worlds/api-docs
+# Документация JSP 
+
+## Документация spworlds-api
+https://github.com/sp-worlds/api-docs
 ________________________
 ## Преимущества над остальными
 - Асинхронность - api выполняет все запросы в асинке, 
