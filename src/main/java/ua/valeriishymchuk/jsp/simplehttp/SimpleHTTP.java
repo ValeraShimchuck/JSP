@@ -65,6 +65,12 @@ public class SimpleHTTP {
         return this;
     }
 
+    public SimpleHTTP setJSONContent(JsonObject json) {
+        content.clear();
+        json.entrySet().forEach(entry -> addContent(entry.getKey(), entry.getValue()));
+        return this;
+    }
+
     public CompletableFuture<HttpResponseResult> send(Method method) {
         return CompletableFuture.supplyAsync(() -> {
             try {

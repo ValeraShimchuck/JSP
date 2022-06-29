@@ -18,6 +18,14 @@ public final class WalletKey {
         this(key.split(":")[0], key.split(":")[1]);
     }
 
+    public String getWalletToken() {
+        return key.split(":")[1];
+    }
+
+    public String getWalletId() {
+        return key.split(":")[0];
+    }
+
     public WalletKey(UUID walletID, String walletToken) {
         this(walletID.toString(), walletToken);
     }

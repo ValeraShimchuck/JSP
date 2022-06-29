@@ -29,7 +29,7 @@ ___________________
     <dependency>
 	    <groupId>com.github.ValeraShimchuck</groupId>
 	    <artifactId>JSP</artifactId>
-	    <version>1.3</version>
+	    <version>1.4</version>
 	</dependency>
 #### gradle
 	allprojects {
@@ -40,7 +40,7 @@ ___________________
 	}
 
 	dependencies {
-	        implementation 'com.github.ValeraShimchuck:JSP:1.3'
+	        implementation 'com.github.ValeraShimchuck:JSP:1.4'
 	}
 ### Как отправить деньги на карту
     String walletId = "7bfaa2cc-628a-44e9-a6a0-d0d25e6ecae1";
@@ -50,6 +50,13 @@ ___________________
     int amount = 1;
     IWallet wallet = new Wallet(walletId, walletToken);
     wallet.sendMoney(walletNumber, amount, comment);
+### Как получить пользователя
+    String walletId = "7bfaa2cc-628a-44e9-a6a0-d0d25e6ecae1";
+    String walletToken = "wvb7Rc9tf91ipiN2AzHipS3/RAvhLc0H";
+    WalletKey key = new WalletKey(walletId, walletToken);
+    String discordID = "317340731381645316";
+    IUser user = User.getUser(key,discordID).join().orElse(null);
+    user.getName(); // получить ник игрока
 ### Как отправить запрос на покупку
     String walletId = "7bfaa2cc-628a-44e9-a6a0-d0d25e6ecae1";
     String walletToken = "wvb7Rc9tf91ipiN2AzHipS3/RAvhLc0H";
@@ -58,16 +65,19 @@ ___________________
     URI redirect = URI.create("https://redirect.test");
     URI webhook = URI.create("https://webhook.test");
     int amount = 1;
-    IPayment payment = new Payment(amount, redirect, webhook, data);
-    URI toSendUserURI = payment.sendPayment(key).join();
+    IPayment payment = new Payment(amount, redirect, webhook, data, key);
+    URI toSendUserURI = payment.sendPayment().join();
 Где toSendUserURI это ссылка на которую нужно отправить пользователя.
-### Как получить пользователя
-    String walletId = "7bfaa2cc-628a-44e9-a6a0-d0d25e6ecae1";
-    String walletToken = "wvb7Rc9tf91ipiN2AzHipS3/RAvhLc0H";
-    WalletKey key = new WalletKey(walletId, walletToken);
-    String discordID = "317340731381645316";
-    IUser user = User.getUser(key,discordID).join().orElse(null);
-    user.getName(); // получить ник игрока
+При получении информации об успешной оплате вы получите JSON в котором:
+* payer - Ник игрока, который совершил оплату
+* amount - Стоимость покупки
+* data - данные которые отдали при создании запроса на оплату.
+
+Для того чтобы проверить оплату вы должны проверить хедер X-Body-Hash ответа, через:
+    
+    String xBodyHash = "some hash"; // get hash from header
+    boolean isValid = payment.getValidator(xBodyHash);
+
 ____
 ## Типы данных
 - DiscordID - является уникальным идентификатором пользователя состоящий из 18 цифр

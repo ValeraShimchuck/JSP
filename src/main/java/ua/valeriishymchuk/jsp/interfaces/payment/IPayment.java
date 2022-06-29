@@ -1,5 +1,7 @@
 package ua.valeriishymchuk.jsp.interfaces.payment;
 
+import ua.valeriishymchuk.jsp.interfaces.validator.IValidator;
+import ua.valeriishymchuk.jsp.payment.PaymentData;
 import ua.valeriishymchuk.jsp.wallet.WalletKey;
 
 import java.net.URI;
@@ -12,14 +14,18 @@ public interface IPayment {
     String getPaymentData();
     int getAmount();
 
-    CompletableFuture<URI> sendPayment(WalletKey key);
+    IValidator getValidator();
 
-    default CompletableFuture<URI> sendPayment(String key) {
-        return sendPayment(new WalletKey(key));
-    }
+    IPayment withAmount(int amount);
 
-    default CompletableFuture<URI> sendPayment(String walletID, String walletToken) {
-        return sendPayment(new WalletKey(walletID, walletToken));
-    }
+    IPayment withPaymentData(String paymentData);
+
+    IPayment withRedirectURI(URI redirectURI);
+
+    IPayment withWebhookURI(URI webhookURI);
+
+    IPayment withWalletKey(WalletKey walletKey);
+
+    CompletableFuture<URI> sendPayment();
 
 }
