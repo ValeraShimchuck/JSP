@@ -29,7 +29,7 @@ ___________________
     <dependency>
 	    <groupId>com.github.ValeraShimchuck</groupId>
 	    <artifactId>JSP</artifactId>
-	    <version>1.4</version>
+	    <version>1.5</version>
 	</dependency>
 #### gradle
 	allprojects {
@@ -40,7 +40,7 @@ ___________________
 	}
 
 	dependencies {
-	        implementation 'com.github.ValeraShimchuck:JSP:1.4'
+	        implementation 'com.github.ValeraShimchuck:JSP:1.5'
 	}
 ### Как отправить деньги на карту
     String walletId = "7bfaa2cc-628a-44e9-a6a0-d0d25e6ecae1";
@@ -57,6 +57,12 @@ ___________________
     String discordID = "317340731381645316";
     IUser user = User.getUser(key,discordID).join().orElse(null);
     user.getName(); // получить ник игрока
+### Как получить данные о карте
+    String walletId = "7bfaa2cc-628a-44e9-a6a0-d0d25e6ecae1";
+    String walletToken = "wvb7Rc9tf91ipiN2AzHipS3/RAvhLc0H";
+    WalletKey key = new WalletKey(walletId, walletToken);
+    IWallet wallet = new Wallet(key);
+    wallet.getWalletInfo().join().getBalance(); // Получить баланс карты
 ### Как отправить запрос на покупку
     String walletId = "7bfaa2cc-628a-44e9-a6a0-d0d25e6ecae1";
     String walletToken = "wvb7Rc9tf91ipiN2AzHipS3/RAvhLc0H";

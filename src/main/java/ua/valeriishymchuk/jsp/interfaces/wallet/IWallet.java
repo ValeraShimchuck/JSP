@@ -9,6 +9,8 @@ public interface IWallet {
 
     CompletableFuture<HttpResponseResult> sendMoney(WalletNumber walletNumber, int amount, String comment);
 
+    CompletableFuture<IWalletInfo> getWalletInfo();
+
     default CompletableFuture<HttpResponseResult> sendMoney(WalletNumber walletNumber, int amount) {
         return sendMoney(walletNumber, amount, " ");
     }

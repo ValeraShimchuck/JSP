@@ -1,5 +1,8 @@
 package ua.valeriishymchuk.jsp.wallet;
 
+import ua.valeriishymchuk.jsp.simplehttp.SimpleHTTP;
+import ua.valeriishymchuk.jsp.values.ApiValues;
+
 import java.util.Base64;
 import java.util.UUID;
 
@@ -36,5 +39,10 @@ public final class WalletKey {
 
     public String getKey() {
         return key;
+    }
+
+    public SimpleHTTP getRequestBuilder(ApiValues.Operations operation) {
+        return SimpleHTTP.jsonApplication(operation.getUrl())
+                .addHeader("Authorization", getAuthorizationHeader());
     }
 }

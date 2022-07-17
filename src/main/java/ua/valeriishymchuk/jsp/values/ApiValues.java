@@ -14,7 +14,8 @@ public final class ApiValues {
     public static enum Operations {
         SEND_MONEY("transactions"),
         SEND_PAYMENT_REQUEST("payment"),
-        GET_USER("users/");
+        GET_USER("users/"),
+        CARD("card");
         private final String operation;
 
         private Operations(String operation) {
